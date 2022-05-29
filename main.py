@@ -17,11 +17,12 @@ pygame.display.set_icon(icon)
 player_img = pygame.image.load("player.png")
 player_x_coordinates = 370
 player_y_coordinates = 480
+change = 0
 
 
-def player():
+def player(x_coordinates, y_coordinates):
     screen.blit(
-        player_img, (player_x_coordinates, player_y_coordinates)
+        player_img, (x_coordinates, y_coordinates)
     )
 
 
@@ -36,7 +37,17 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    player()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                change -= 0.2
+            if event.key == pygame.K_RIGHT:
+                change += 0.2
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT \
+                    or event.key == pygame.K_RIGHT:
+                change = 0
+    player_x_coordinates += change
+    player(player_x_coordinates, player_y_coordinates)
 
     pygame.display.update()
 
