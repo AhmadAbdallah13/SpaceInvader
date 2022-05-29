@@ -20,7 +20,9 @@ player_y_coordinates = 480
 
 
 def player():
-    screen.blit(player_img, (player_x_coordinates , player_y_coordinates))
+    screen.blit(
+        player_img, (player_x_coordinates, player_y_coordinates)
+    )
 
 
 # game loop
