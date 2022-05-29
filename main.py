@@ -13,15 +13,28 @@ pygame.display.set_caption("Space Invader")
 icon = pygame.image.load("spaceship.png")
 pygame.display.set_icon(icon)
 
+# player
+player_img = pygame.image.load("player.png")
+player_x_coordinates = 370
+player_y_coordinates = 480
+
+
+def player():
+    screen.blit(player_img, (player_x_coordinates , player_y_coordinates))
+
+
 # game loop
 running = True
 while running:
+    # change background color.
+    # keep it first to be below all the images.
+    screen.fill((150, 0, 0))
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    # change background color.
-    screen.fill((150, 0, 0))
+    player()
 
     pygame.display.update()
 
