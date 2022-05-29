@@ -1,3 +1,5 @@
+import random
+
 import pygame
 
 
@@ -17,7 +19,13 @@ pygame.display.set_icon(icon)
 player_img = pygame.image.load("player.png")
 player_x_coordinates = 370
 player_y_coordinates = 480
-change = 0
+player_change = 0
+
+# alien
+alien_img = pygame.image.load("alien.png")
+alien_x_coordinates = random.randint(64, 736)
+alien_y_coordinates = random.randint(64, 150)
+alien_change = 0
 
 
 def player(x_coordinates, y_coordinates):
@@ -26,12 +34,18 @@ def player(x_coordinates, y_coordinates):
     )
 
 
+def alien(x_coordinates, y_coordinates):
+    screen.blit(
+        alien_img, (x_coordinates, y_coordinates)
+    )
+
+
 # game loop
 running = True
 while running:
     # change background color.
     # keep it first to be below all the images.
-    screen.fill((150, 0, 0))
+    screen.fill((0, 0, 0))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -39,19 +53,22 @@ while running:
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                change -= 0.2
+                player_change -= 0.2
             if event.key == pygame.K_RIGHT:
-                change += 0.2
+                player_change += 0.2
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT \
                     or event.key == pygame.K_RIGHT:
-                change = 0
-    player_x_coordinates += change
+                player_change = 0
+
+    player_x_coordinates += player_change
     if player_x_coordinates <= 0:
         player_x_coordinates = 0
     elif player_x_coordinates >= 736:
         player_x_coordinates = 736
+
     player(player_x_coordinates, player_y_coordinates)
+    alien(alien_x_coordinates, alien_y_coordinates)
 
     pygame.display.update()
 
