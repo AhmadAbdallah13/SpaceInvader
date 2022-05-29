@@ -8,11 +8,13 @@ pygame.init()
 
 # create the screen.
 screen = pygame.display.set_mode((800, 600))
+# add background image
+stars_background = pygame.image.load("stars.png")
 
 # change title and icon.
 pygame.display.set_caption("Space Invader")
 # todo: icon not working.
-icon = pygame.image.load("spaceship.png")
+icon = pygame.image.load("spaceship.png").convert()
 pygame.display.set_icon(icon)
 
 # player
@@ -25,8 +27,8 @@ player_change = 0
 alien_img = pygame.image.load("alien.png")
 alien_x_coordinates = random.randint(64, 736)
 alien_y_coordinates = random.randint(64, 150)
-alien_x_change = 0.2
-alien_y_change = 40
+alien_x_change = 2.5
+alien_y_change = 20
 
 
 def player(x_coordinates, y_coordinates):
@@ -47,6 +49,7 @@ while running:
     # change background color.
     # keep it first to be below all the images.
     screen.fill((0, 0, 0))
+    screen.blit(stars_background, (0, 0))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -54,9 +57,9 @@ while running:
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                player_change -= 0.2
+                player_change -= 4
             if event.key == pygame.K_RIGHT:
-                player_change += 0.2
+                player_change += 4
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT \
                     or event.key == pygame.K_RIGHT:
@@ -70,10 +73,10 @@ while running:
 
     alien_x_coordinates += alien_x_change
     if alien_x_coordinates <= 0:
-        alien_x_change = 0.2
+        alien_x_change = 2.5
         alien_y_coordinates += alien_y_change
     elif alien_x_coordinates >= 736:
-        alien_x_change = -0.2
+        alien_x_change = -2.5
         alien_y_coordinates += alien_y_change
 
     player(player_x_coordinates, player_y_coordinates)
