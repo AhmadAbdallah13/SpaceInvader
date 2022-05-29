@@ -25,7 +25,8 @@ player_change = 0
 alien_img = pygame.image.load("alien.png")
 alien_x_coordinates = random.randint(64, 736)
 alien_y_coordinates = random.randint(64, 150)
-alien_change = 0
+alien_x_change = 0.2
+alien_y_change = 40
 
 
 def player(x_coordinates, y_coordinates):
@@ -66,6 +67,14 @@ while running:
         player_x_coordinates = 0
     elif player_x_coordinates >= 736:
         player_x_coordinates = 736
+
+    alien_x_coordinates += alien_x_change
+    if alien_x_coordinates <= 0:
+        alien_x_change = 0.2
+        alien_y_coordinates += alien_y_change
+    elif alien_x_coordinates >= 736:
+        alien_x_change = -0.2
+        alien_y_coordinates += alien_y_change
 
     player(player_x_coordinates, player_y_coordinates)
     alien(alien_x_coordinates, alien_y_coordinates)
