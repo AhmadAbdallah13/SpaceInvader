@@ -77,8 +77,9 @@ while running:
                 player_change -= 4
             if event.key == pygame.K_RIGHT:
                 player_change += 4
-            if event.key == pygame.K_SPACE:
-                fire_bullet(player_x_coordinates, bullet_y_coordinates)
+            if event.key == pygame.K_SPACE and bullet_state == "ready":
+                bullet_x_coordinates = player_x_coordinates
+                fire_bullet(bullet_x_coordinates, bullet_y_coordinates)
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT \
                     or event.key == pygame.K_RIGHT:
@@ -103,7 +104,7 @@ while running:
         bullet_y_coordinates = 480
         bullet_state = "ready"
     if bullet_state == "fire":
-        fire_bullet(player_x_coordinates, bullet_y_coordinates)
+        fire_bullet(bullet_x_coordinates, bullet_y_coordinates)
         bullet_y_coordinates -= bullet_y_change
 
     player(player_x_coordinates, player_y_coordinates)
