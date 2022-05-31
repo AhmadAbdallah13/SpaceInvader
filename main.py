@@ -30,6 +30,14 @@ alien_y_coordinates = random.randint(64, 150)
 alien_x_change = 2.5
 alien_y_change = 20
 
+# bullet
+bullet_img = pygame.image.load("static/bullet.png")
+bullet_x_coordinates = 0  # x will not change
+bullet_y_coordinates = 480
+bullet_x_change = 0  # x will not change
+bullet_y_change = 3.5
+bullet_state = "ready"
+
 
 def player(x_coordinates, y_coordinates):
     screen.blit(
@@ -40,6 +48,16 @@ def player(x_coordinates, y_coordinates):
 def alien(x_coordinates, y_coordinates):
     screen.blit(
         alien_img, (x_coordinates, y_coordinates)
+    )
+
+
+def fire_bullet(x_coordinates, y_coordinates):
+    print("shit got fired")
+    global bullet_state
+    bullet_state = "fire"
+    screen.blit(
+        bullet_img,
+        (x_coordinates + 16, y_coordinates + 10)
     )
 
 
@@ -60,6 +78,8 @@ while running:
                 player_change -= 4
             if event.key == pygame.K_RIGHT:
                 player_change += 4
+            if event.key == pygame.K_SPACE:
+                fire_bullet(player_x_coordinates, bullet_y_coordinates)
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT \
                     or event.key == pygame.K_RIGHT:
@@ -78,6 +98,11 @@ while running:
     elif alien_x_coordinates >= 736:
         alien_x_change = -2.5
         alien_y_coordinates += alien_y_change
+
+    # bullet movement
+    if bullet_state == "fire":
+        fire_bullet(player_x_coordinates, bullet_y_coordinates)
+        bullet_y_coordinates -= bullet_y_change
 
     player(player_x_coordinates, player_y_coordinates)
     alien(alien_x_coordinates, alien_y_coordinates)
