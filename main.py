@@ -9,22 +9,22 @@ pygame.init()
 # create the screen.
 screen = pygame.display.set_mode((800, 600))
 # add background image
-stars_background = pygame.image.load("stars.png")
+stars_background = pygame.image.load("static/stars.png")
 
 # change title and icon.
 pygame.display.set_caption("Space Invader")
 # todo: icon not working.
-icon = pygame.image.load("spaceship.png").convert()
+icon = pygame.image.load("static/spaceship.png").convert()
 pygame.display.set_icon(icon)
 
 # player
-player_img = pygame.image.load("player.png")
+player_img = pygame.image.load("static/player.png")
 player_x_coordinates = 370
 player_y_coordinates = 480
 player_change = 0
 
 # alien
-alien_img = pygame.image.load("alien.png")
+alien_img = pygame.image.load("static/alien.png")
 alien_x_coordinates = random.randint(64, 736)
 alien_y_coordinates = random.randint(64, 150)
 alien_x_change = 2.5
