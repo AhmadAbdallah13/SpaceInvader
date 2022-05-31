@@ -52,7 +52,6 @@ def alien(x_coordinates, y_coordinates):
 
 
 def fire_bullet(x_coordinates, y_coordinates):
-    print("shit got fired")
     global bullet_state
     bullet_state = "fire"
     screen.blit(
@@ -100,6 +99,9 @@ while running:
         alien_y_coordinates += alien_y_change
 
     # bullet movement
+    if bullet_y_coordinates <= 0:
+        bullet_y_coordinates = 480
+        bullet_state = "ready"
     if bullet_state == "fire":
         fire_bullet(player_x_coordinates, bullet_y_coordinates)
         bullet_y_coordinates -= bullet_y_change
