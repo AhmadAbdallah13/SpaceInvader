@@ -5,7 +5,9 @@ from game_screen import Screen
 from player import Player
 from alien import Alien
 from bullet import Bullet
+from utils import is_collided
 
+# #############  END OF IMPORTS   #############
 
 # initialize the game.
 pygame.init()
@@ -39,6 +41,17 @@ while running:
             if event.key == pygame.K_LEFT \
                     or event.key == pygame.K_RIGHT:
                 player.player_change = 0
+
+    collision = is_collided(
+        alien.x_coordinates,
+        alien.y_coordinates,
+        bullet.x_coordinates,
+        bullet.y_coordinates,
+    )
+    if collision:
+        bullet.y_coordinates = 480
+        bullet.state = "ready"
+        alien.respawn()
 
     player.update_coordinates()
     alien.update_coordinates()

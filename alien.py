@@ -25,3 +25,7 @@ class Alien:
         elif self.x_coordinates >= 736:
             self.x_change = -2.5
             self.y_coordinates += self.y_change
+
+    def respawn(self):
+        self.x_coordinates = random.randint(64, 736)
+        self.y_coordinates = random.randint(64, 150)
