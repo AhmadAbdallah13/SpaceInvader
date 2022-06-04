@@ -1,5 +1,6 @@
 # #############  ORDER OF IMPORTS MATTER  #############
 import pygame
+from pygame import mixer
 
 from game_screen import Screen
 from player import Player
@@ -40,6 +41,8 @@ while running:
             if event.key == pygame.K_SPACE and bullet.state == "ready":
                 bullet.x_coordinates = player.x_coordinates
                 bullet.fire_bullet(bullet.x_coordinates, bullet.y_coordinates)
+                bullet_sound = mixer.Sound("static/sounds/laser.wav")
+                bullet_sound.play()
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT \
                     or event.key == pygame.K_RIGHT:
@@ -53,6 +56,8 @@ while running:
             bullet.y_coordinates,
         )
         if collision:
+            collision_sound = mixer.Sound("static/sounds/explosion.wav")
+            collision_sound.play()
             bullet.y_coordinates = 480
             bullet.state = "ready"
             player.score += 1

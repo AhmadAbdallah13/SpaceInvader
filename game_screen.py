@@ -1,4 +1,5 @@
 import pygame
+from pygame import mixer
 
 
 class Screen:
@@ -12,3 +13,7 @@ class Screen:
         # change title and icon.
         pygame.display.set_caption("Space Invader")
         pygame.display.set_icon(self.icon)
+
+        # play background music
+        mixer.music.load("static/sounds/background.wav")
+        mixer.music.play(-1)
