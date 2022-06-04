@@ -1,30 +1,18 @@
+# #############  ORDER OF IMPORTS MATTER  #############
 import pygame
+
 from game_screen import Screen
 from player import Player
 from alien import Alien
+from bullet import Bullet
+
 
 # initialize the game.
 pygame.init()
 screen = Screen()
 player = Player(370, 480)
 alien = Alien()
-
-# bullet
-bullet_img = pygame.image.load("static/bullet.png")
-bullet_x_coordinates = 0  # x will not change
-bullet_y_coordinates = 480
-bullet_x_change = 0  # x will not change
-bullet_y_change = 3.5
-bullet_state = "ready"
-
-
-def fire_bullet(x_coordinates, y_coordinates):
-    global bullet_state
-    bullet_state = "fire"
-    screen.screen.blit(
-        bullet_img,
-        (x_coordinates + 16, y_coordinates + 10)
-    )
+bullet = Bullet()
 
 
 # game loop
@@ -44,9 +32,9 @@ while running:
                 player.player_change -= 4
             if event.key == pygame.K_RIGHT:
                 player.player_change += 4
-            if event.key == pygame.K_SPACE and bullet_state == "ready":
-                bullet_x_coordinates = player.x_coordinates
-                fire_bullet(bullet_x_coordinates, bullet_y_coordinates)
+            if event.key == pygame.K_SPACE and bullet.state == "ready":
+                bullet.x_coordinates = player.x_coordinates
+                bullet.fire_bullet(bullet.x_coordinates, bullet.y_coordinates)
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT \
                     or event.key == pygame.K_RIGHT:
@@ -54,14 +42,7 @@ while running:
 
     player.update_coordinates()
     alien.update_coordinates()
-
-    # bullet movement
-    if bullet_y_coordinates <= 0:
-        bullet_y_coordinates = 480
-        bullet_state = "ready"
-    if bullet_state == "fire":
-        fire_bullet(bullet_x_coordinates, bullet_y_coordinates)
-        bullet_y_coordinates -= bullet_y_change
+    bullet.update_coordinates()
 
     player.player_coordinates(player.x_coordinates, player.y_coordinates)
     alien.alien_coordinates(alien.x_coordinates, alien.y_coordinates)
