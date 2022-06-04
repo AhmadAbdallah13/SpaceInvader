@@ -5,7 +5,7 @@ from game_screen import Screen
 from player import Player
 from alien import Alien
 from bullet import Bullet
-from utils import is_collided
+from utils import is_collided, show_score
 
 # #############  END OF IMPORTS   #############
 
@@ -65,6 +65,5 @@ while running:
     bullet.update_coordinates()
 
     player.player_coordinates(player.x_coordinates, player.y_coordinates)
-
+    show_score(player.score)
     pygame.display.update()
-
