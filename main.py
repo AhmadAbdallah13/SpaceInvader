@@ -6,7 +6,7 @@ from game_screen import Screen
 from player import Player
 from alien import Alien
 from bullet import Bullet
-from utils import is_collided, show_score
+from utils import is_collided, show_score, game_over
 
 # #############  END OF IMPORTS   #############
 
@@ -65,6 +65,12 @@ while running:
 
         alien.update_coordinates()
         alien.alien_coordinates(alien.x_coordinates, alien.y_coordinates)
+        if alien.y_coordinates > 440:
+            # hide all aliens from the screen
+            for a in aliens:
+                a.y_coordinates = 2000
+            game_over()
+            break
 
     player.update_coordinates()
     bullet.update_coordinates()

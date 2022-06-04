@@ -1,4 +1,5 @@
 import pygame
+from game_screen import Screen
 
 
 def is_collided(
@@ -14,7 +15,12 @@ def is_collided(
 
 
 def show_score(score_value):
-    from game_screen import Screen
     font = pygame.font.Font('static/fonts/Alice_in_Wonderland.ttf', 32)
     score = font.render("Score: " + str(score_value), True, (255, 255, 255))
     Screen.screen.blit(score, (10, 10))
+
+
+def game_over():
+    game_over_font = pygame.font.Font('static/fonts/Alice_in_Wonderland.ttf', 64)
+    score = game_over_font.render("Game Over, You Lost :(", True, (255, 255, 255))
+    Screen.screen.blit(score, (130, 250))
