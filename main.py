@@ -1,21 +1,12 @@
 import random
-
 import pygame
+
+from game_screen import Screen
 
 
 # initialize the game.
 pygame.init()
-
-# create the screen.
-screen = pygame.display.set_mode((800, 600))
-# add background image
-stars_background = pygame.image.load("static/stars.png")
-
-# change title and icon.
-pygame.display.set_caption("Space Invader")
-# todo: icon not working.
-icon = pygame.image.load("static/spaceship.png").convert()
-pygame.display.set_icon(icon)
+screen = Screen()
 
 # player
 player_img = pygame.image.load("static/player.png")
@@ -40,13 +31,13 @@ bullet_state = "ready"
 
 
 def player(x_coordinates, y_coordinates):
-    screen.blit(
+    screen.screen.blit(
         player_img, (x_coordinates, y_coordinates)
     )
 
 
 def alien(x_coordinates, y_coordinates):
-    screen.blit(
+    screen.screen.blit(
         alien_img, (x_coordinates, y_coordinates)
     )
 
@@ -54,7 +45,7 @@ def alien(x_coordinates, y_coordinates):
 def fire_bullet(x_coordinates, y_coordinates):
     global bullet_state
     bullet_state = "fire"
-    screen.blit(
+    screen.screen.blit(
         bullet_img,
         (x_coordinates + 16, y_coordinates + 10)
     )
@@ -65,8 +56,8 @@ running = True
 while running:
     # change background color.
     # keep it first to be below all the images.
-    screen.fill((0, 0, 0))
-    screen.blit(stars_background, (0, 0))
+    screen.screen.fill((0, 0, 0))
+    screen.screen.blit(screen.stars_background, (0, 0))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
