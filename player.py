@@ -8,6 +8,7 @@ class Player:
         self.x_coordinates = x_coordinates
         self.y_coordinates = y_coordinates
         self.player_change = 0
+        self.score = 0
 
     def player_coordinates(self, x_coordinates, y_coordinates):
         from game_screen import Screen

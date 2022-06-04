@@ -51,6 +51,7 @@ while running:
     if collision:
         bullet.y_coordinates = 480
         bullet.state = "ready"
+        player.score += 1
         alien.respawn()
 
     player.update_coordinates()
