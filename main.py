@@ -13,8 +13,11 @@ from utils import is_collided
 pygame.init()
 screen = Screen()
 player = Player(370, 480)
-alien = Alien()
 bullet = Bullet()
+aliens = []
+for _ in range(6):
+    alien = Alien()
+    aliens.append(alien)
 
 
 # game loop
@@ -42,24 +45,26 @@ while running:
                     or event.key == pygame.K_RIGHT:
                 player.player_change = 0
 
-    collision = is_collided(
-        alien.x_coordinates,
-        alien.y_coordinates,
-        bullet.x_coordinates,
-        bullet.y_coordinates,
-    )
-    if collision:
-        bullet.y_coordinates = 480
-        bullet.state = "ready"
-        player.score += 1
-        alien.respawn()
+    for alien in aliens:
+        collision = is_collided(
+            alien.x_coordinates,
+            alien.y_coordinates,
+            bullet.x_coordinates,
+            bullet.y_coordinates,
+        )
+        if collision:
+            bullet.y_coordinates = 480
+            bullet.state = "ready"
+            player.score += 1
+            alien.respawn()
+
+        alien.update_coordinates()
+        alien.alien_coordinates(alien.x_coordinates, alien.y_coordinates)
 
     player.update_coordinates()
-    alien.update_coordinates()
     bullet.update_coordinates()
 
     player.player_coordinates(player.x_coordinates, player.y_coordinates)
-    alien.alien_coordinates(alien.x_coordinates, alien.y_coordinates)
 
     pygame.display.update()
 
